@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constrainedWidth="true"
+     
             android:text="1803" />
 
     </LinearLayout>
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:layout_constrainedWidth="true"
+
             android:text="64.9" />
 
     </LinearLayout>
