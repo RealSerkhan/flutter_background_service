@@ -253,7 +253,7 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
         try {
             if (method.equalsIgnoreCase("setNotificationInfo")) {
                 JSONObject arg = (JSONObject) call.arguments;
-                if (arg.has("title")) {
+                if (arg.has("title") && arg.has("step_count")&& arg.has("calori_value")) {
                     notificationTitle = arg.getString("title");
                     notificationContent = arg.getString("content");
                     stepCount= arg.getInt("step_count");

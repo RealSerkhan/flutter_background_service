@@ -173,11 +173,13 @@ class FlutterBackgroundService {
 
   // Set Foreground Notification Information
   // Only available when foreground mode is true
-  void setNotificationInfo({String? title, String? content}) {
+  void setNotificationInfo({String? title, String? content,int? stepCount,double? caloriValue}) {
     if (Platform.isAndroid)
       _backgroundChannel.invokeMethod("setNotificationInfo", {
         "title": title,
         "content": content,
+        "step_count": stepCount,
+        "calori_value": caloriValue,
       });
   }
 
