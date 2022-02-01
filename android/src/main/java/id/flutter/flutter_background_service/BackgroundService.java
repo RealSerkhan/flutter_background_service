@@ -15,6 +15,8 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import android.widget.RemoteViews;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.AlarmManagerCompat;
 import androidx.core.app.NotificationCompat;
@@ -165,11 +167,13 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
             } else {
                 pi = PendingIntent.getActivity(BackgroundService.this, 99778, i, PendingIntent.FLAG_CANCEL_CURRENT);
             }
-
+            RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification_layout);
+            
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "FOREGROUND_DEFAULT")
                     .setSmallIcon(R.drawable.ic_bg_service_small)
                     .setAutoCancel(true)
                     .setOngoing(true)
+                    .setCustomContentView(notificationLayout)
                     .setContentTitle(notificationTitle)
                     .setContentText(notificationContent)
                     .setContentIntent(pi);
@@ -305,3 +309,4 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
         result.notImplemented();
     }
 }
+
