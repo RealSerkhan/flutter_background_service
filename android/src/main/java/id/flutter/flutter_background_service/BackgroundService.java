@@ -15,7 +15,9 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.AlarmManagerCompat;
@@ -47,6 +49,8 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
     private boolean isManuallyStopped = false;
 
     String notificationTitle = "Background Service";
+    int stepCount=0;
+    double caloriValue=0;
     String notificationContent = "Running";
     private static final String LOCK_NAME = BackgroundService.class.getName()
             + ".Lock";
@@ -168,7 +172,11 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
                 pi = PendingIntent.getActivity(BackgroundService.this, 99778, i, PendingIntent.FLAG_CANCEL_CURRENT);
             }
             RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification_layout);
-            
+            TextView stepTextView  = (TextView) findViewById(R.id.tv_step_count);
+            TextView caloriTextView  = (TextView) findViewById(R.id.tv_temperature);
+            stepTextView.setText(stepCount);
+            caloriTextView.setText((int) caloriValue);
+
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "FOREGROUND_DEFAULT")
                     .setSmallIcon(R.drawable.ic_bg_service_small)
                     .setAutoCancel(true)
@@ -248,6 +256,8 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
                 if (arg.has("title")) {
                     notificationTitle = arg.getString("title");
                     notificationContent = arg.getString("content");
+                    stepCount= arg.getInt("step_count");
+                    caloriValue= arg.getDouble("calori_value");
                     updateNotificationInfo();
                     result.success(true);
                     return;
