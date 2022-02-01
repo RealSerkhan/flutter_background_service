@@ -14,6 +14,8 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.renderscript.ScriptGroup;
+import android.text.Layout;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.RemoteViews;
@@ -40,6 +42,26 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.view.FlutterCallbackInformation;
 import io.flutter.view.FlutterMain;
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.ImageView;
+import android.widget.RemoteViews;
+import android.widget.TextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
+import java.util.*;
 
 public class BackgroundService extends Service implements MethodChannel.MethodCallHandler {
     private static final String TAG = "BackgroundService";
@@ -47,6 +69,7 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
     private MethodChannel methodChannel;
     private DartExecutor.DartCallback dartCallback;
     private boolean isManuallyStopped = false;
+    ScriptGroup.Binding binding;
 
     String notificationTitle = "Background Service";
     int stepCount=0;
@@ -119,10 +142,14 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
     @Override
     public void onCreate() {
         super.onCreate();
+
         createNotificationChannel();
         notificationContent = "Preparing";
+
         updateNotificationInfo();
+
     }
+
 
     @Override
     public void onDestroy() {
@@ -172,8 +199,11 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
                 pi = PendingIntent.getActivity(BackgroundService.this, 99778, i, PendingIntent.FLAG_CANCEL_CURRENT);
             }
             RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification_layout);
-            TextView stepTextView  = (TextView) findViewById(R.id.tv_step_count);
-            TextView caloriTextView  = (TextView) findViewById(R.id.tv_temperature);
+
+
+
+         final   TextView stepTextView  = (TextView) findViewById(R.id.tv_step_count);
+         final   TextView caloriTextView  = (TextView) findViewById(R.id.tv_temperature);
             stepTextView.setText(stepCount);
             caloriTextView.setText((int) caloriValue);
 
