@@ -17,6 +17,8 @@ import android.os.PowerManager.WakeLock;
 import android.renderscript.ScriptGroup;
 import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RemoteViews;
 import android.widget.TextView;
@@ -201,9 +203,12 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
             RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification_layout);
 
 
+            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.notification_layout, null);
 
-         final   TextView stepTextView  = (TextView) findViewById(R.id.tv_step_count);
-         final   TextView caloriTextView  = (TextView) findViewById(R.id.tv_temperature);
+
+         final   TextView stepTextView  = (TextView) layout.findViewById(R.id.tv_step_count);
+         final   TextView caloriTextView  = (TextView) layout.findViewById(R.id.tv_temperature);
             stepTextView.setText(stepCount);
             caloriTextView.setText((int) caloriValue);
 
