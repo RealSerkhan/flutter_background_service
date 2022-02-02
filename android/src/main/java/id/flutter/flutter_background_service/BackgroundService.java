@@ -201,16 +201,15 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
                 pi = PendingIntent.getActivity(BackgroundService.this, 99778, i, PendingIntent.FLAG_CANCEL_CURRENT);
             }
             RemoteViews notificationLayout = new RemoteViews(getPackageName(), R.layout.notification_layout);
-
-
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.notification_layout, null);
+            notificationLayout.setTextViewText(R.id.tv_temperature, String.valueOf(caloriValue));
+            notificationLayout.setTextViewText(R.id.tv_step_count, String.valueOf(stepCount));
+//         final   TextView stepTextView  = (TextView) layout.findViewById(R.id.tv_step_count);
+//         final   TextView caloriTextView  = (TextView) layout.findViewById(R.id.tv_temperature);
+//            stepTextView.setText("322");
+//            caloriTextView.setText( "2323");
 
-
-         final   TextView stepTextView  = (TextView) layout.findViewById(R.id.tv_step_count);
-         final   TextView caloriTextView  = (TextView) layout.findViewById(R.id.tv_temperature);
-            stepTextView.setText(stepCount);
-            caloriTextView.setText((int) caloriValue);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "FOREGROUND_DEFAULT")
                     .setSmallIcon(R.drawable.ic_bg_service_small)
