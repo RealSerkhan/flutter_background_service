@@ -178,8 +178,8 @@ class FlutterBackgroundService {
       _backgroundChannel.invokeMethod("setNotificationInfo", {
         "title": title,
         "content": content,
-        "step_count": stepCount,
-        "calori_value": caloriValue,
+        "step_count": stepCount??0,
+        "calori_value": caloriValue??0,
       });
   }
 
