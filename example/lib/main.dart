@@ -65,6 +65,8 @@ void onStart() {
     service.setNotificationInfo(
       title: "My App Service",
       content: "Updated at ${DateTime.now()}",
+      stepCount: 23,
+      caloriValue: 34
     );
 
     service.sendData(

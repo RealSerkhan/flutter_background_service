@@ -212,7 +212,7 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
 
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "FOREGROUND_DEFAULT")
-                    .setSmallIcon(R.drawable.ic_bg_service_small)
+                    .setSmallIcon(R.drawable.ic_feet)
                     .setAutoCancel(true)
                     .setOngoing(true)
                     .setCustomContentView(notificationLayout)
